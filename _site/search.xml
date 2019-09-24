@@ -7,10 +7,12 @@
       <content type="text"><![CDATA[参考链接我们可以使用 WillPopScope 这个 widget 来帮助我们相应 Android 上的返回键，下面是双击返回键退出 APPDateTime currentBackPressTime;@overrideWidget build(BuildContext context) {  return Scaffold(    ...    body: WillPopScope(child: getBody(), onWillPop: onWillPop),  );}Future&lt;bool&gt; onWillPop() {    DateTime now = DateTime.now();    if (currentBackPressTime == null ||         now.difference(currentBackPressTime) &gt; Duration(seconds: 2)) {      currentBackPressTime = now;      Fluttertoast.showToast(msg: exit_warning);      return Future.value(false);    }    return Future.value(true);  }退出 APP 可以使用 exit(0)，如：RaisedButton(    child: Text("exit"),    onPressed: () {    exit(0);    },)]]></content>
       <categories>
         
-          <category> flutter </category>
+          <category> Flutter </category>
         
       </categories>
       <tags>
+        
+          <tag> Flutter </tag>
         
       </tags>
       <tags></tags>
