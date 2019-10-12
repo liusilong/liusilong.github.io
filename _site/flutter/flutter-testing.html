@@ -1,0 +1,1614 @@
+
+<!doctype html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/assets/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/assets/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/assets/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Flutter," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Liusilong" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/assets/images/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="官方文档">
+<meta name="keywords" content="Flutter">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Flutter 单元测试">
+<meta property="og:url" content="http://localhost:4000/flutter/flutter-testing">
+<meta property="og:site_name" content="Liusilong">
+<meta property="og:description" content="官方文档">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2019/9/29/16d7c5fd6051bd7b?w=614&amp;h=788&amp;f=png&amp;s=68565">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2019/9/29/16d7ca58ca76c1b2?w=642&amp;h=397&amp;f=png&amp;s=68970">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2019/9/29/16d7d8d0fc500018?w=632&amp;h=1168&amp;f=png&amp;s=66929">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2019/9/29/16d7d9ffbacfd1a3?w=1064&amp;h=1106&amp;f=png&amp;s=85070">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Flutter 单元测试">
+<meta name="twitter:description" content="官方文档">
+<meta name="twitter:image" content="https://user-gold-cdn.xitu.io/2019/9/29/16d7c5fd6051bd7b?w=614&amp;h=788&amp;f=png&amp;s=68565">
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://localhost:4000/"/>
+
+
+
+
+
+  <title>Flutter 单元测试 | Liusilong</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Liusilong</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+<div id="posts" class="posts-expand">
+  
+  
+
+  
+
+  
+  
+  
+
+  <article class="post post-type- " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://localhost:4000/flutter/flutter-testing">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Liusilong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="assets/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Liusilong">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+          
+          
+            Flutter 单元测试
+          
+        </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-10-08T22:28:00+08:00">
+                2019-10-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/category/#/Flutter" itemprop="url" rel="index">
+                    <span itemprop="name">Flutter</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+            
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <p><a href="https://flutter.dev/docs/testing">官方文档</a></p>
+
+<p>当 App 中的功能越来越多的时候，我们想要去手动测试一个功能的时候，会变的非常麻烦，这个时候就需要单元测试来帮助我们测试想要测的功能。</p>
+
+<p>Flutter 中提供了三种测试：</p>
+<ul>
+  <li>unit test ： 单元测试</li>
+  <li>widget test ： Widget 测试</li>
+  <li>integration test ： 集成测试</li>
+</ul>
+
+<p>这里记录下前两种。</p>
+
+<p>当创建一个新的 Flutter 工程之后，工程目录下就会有一个 test 目录，该目录用来存放测试文件：</p>
+
+<p><img src="https://user-gold-cdn.xitu.io/2019/9/29/16d7c5fd6051bd7b?w=614&amp;h=788&amp;f=png&amp;s=68565" alt="" /></p>
+
+<h2 id="单元测试">单元测试</h2>
+<p>单元测试用来验证代码中的某一个方法或者某一块逻辑是否正确。写单元测试的步骤如下：</p>
+
+<ol>
+  <li>添加 test 或者 flutter_test 依赖到工程中</li>
+  <li>在 <strong>test</strong> 目录下创建一个测试文件，如： <code class="highlighter-rouge">counter_test.dart</code></li>
+  <li>创建一个待测试的文件，如： <code class="highlighter-rouge">counter.dart</code></li>
+  <li>在 <code class="highlighter-rouge">counter_test.dart</code> 文件中编写 <code class="highlighter-rouge">test</code></li>
+  <li>如果有多个测试的需要在一起测试的情况下，可以使用 <code class="highlighter-rouge">group</code></li>
+  <li>运行测试类</li>
+</ol>
+
+<h4 id="1-添加依赖">1. 添加依赖</h4>
+<p>在工程的 <code class="highlighter-rouge">pubspec.yaml</code> 中添加 <code class="highlighter-rouge">flutter_test</code> 的依赖：</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3</pre></td><td class="code"><pre class="highlight"><code><span class="na">dev_dependencies</span><span class="pi">:</span>
+  <span class="na">flutter_test</span><span class="pi">:</span>
+    <span class="na">sdk</span><span class="pi">:</span> <span class="s">flutter</span>
+</code></pre></td></tr></tbody></table></div></div>
+<h4 id="2-创建测试文件">2. 创建测试文件</h4>
+<p>这里，需要创建两个文件，一个是测试类文件 <code class="highlighter-rouge">counter_test.dart</code> 还有一个是被测试文件<code class="highlighter-rouge">counter.dart</code>。当这两个文件创建完之后，目录结构如下：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5</pre></td><td class="code"><pre class="highlight"><code>.
+├── lib
+│   ├── counter.dart
+├── test
+│   ├── counter_test.dart
+</code></pre></td></tr></tbody></table></div></div>
+
+<h4 id="3-编写被测试类">3. 编写被测试类</h4>
+<p><code class="highlighter-rouge">Counter</code> 类中的方法如下：</p>
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7</pre></td><td class="code"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Counter</span> <span class="o">{</span>
+  <span class="kt">int</span> <span class="n">value</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+
+  <span class="kt">void</span> <span class="n">increment</span><span class="o">()</span> <span class="o">=&gt;</span> <span class="n">value</span><span class="o">++;</span>
+
+  <span class="kt">void</span> <span class="n">decrement</span><span class="o">()</span> <span class="o">=&gt;</span> <span class="n">value</span><span class="o">--;</span>
+<span class="o">}</span>
+</code></pre></td></tr></tbody></table></div></div>
+<h4 id="4编写测试类">4.编写测试类</h4>
+<p>在 <code class="highlighter-rouge">counter_test.dart</code> 文件中编写单元测试，里面会使用到一些 <code class="highlighter-rouge">flutter_test</code> 包提供的顶层方法，如 <code class="highlighter-rouge">test(...)</code> 方法是用来定义一个单元测试的，还有就是 <code class="highlighter-rouge">expect(...)</code> 方法用来验证结果的。</p>
+
+<p><code class="highlighter-rouge">test(...)</code> 方法里面有两个必需的参数，第一个参数表示这个单元测试的描述信息，第二个是一个 Function，用来编写测试内容的。</p>
+
+<p><code class="highlighter-rouge">expect(...)</code> 方法中也有两个必需的参数，第一个是需要验证的变量，第二个是与该变量匹配的值。</p>
+
+<p><code class="highlighter-rouge">counter_test.dart</code> 中的代码如下：</p>
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9<br/>10<br/>11<br/>12<br/>13<br/>14</pre></td><td class="code"><pre class="highlight"><code><span class="kn">import</span> <span class="s">'package:flutter_test/flutter_test.dart'</span><span class="o">;</span>
+<span class="kn">import</span> <span class="s">'package:flutter_testing/counter.dart'</span><span class="o">;</span>
+
+<span class="c1">/// 也可以使用命令来运行 flutter test test/counter_test.dart</span>
+
+<span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="o">)</span> <span class="o">{</span>
+  <span class="c1">// 单一的测试</span>
+  <span class="n">test</span><span class="o">(</span><span class="s">"测试 value 递增"</span><span class="o">,</span> <span class="o">()</span> <span class="o">{</span>
+    <span class="kd">final</span> <span class="n">counter</span> <span class="o">=</span> <span class="n">Counter</span><span class="o">();</span>
+    <span class="n">counter</span><span class="o">.</span><span class="na">increment</span><span class="o">();</span>
+    
+    <span class="c1">// 验证 counter.value 的是是否为 1</span>
+    <span class="n">expect</span><span class="o">(</span><span class="n">counter</span><span class="o">.</span><span class="na">value</span><span class="o">,</span> <span class="mi">1</span><span class="o">);</span>
+  <span class="o">});</span>
+</code></pre></td></tr></tbody></table></div></div>
+
+<h4 id="5使用-group-来执行多个测试">5.使用 group 来执行多个测试</h4>
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9<br/>10<br/>11<br/>12<br/>13<br/>14<br/>15<br/>16<br/>17<br/>18<br/>19<br/>20<br/>21<br/>22<br/>23<br/>24<br/>25<br/>26<br/>27</pre></td><td class="code"><pre class="highlight"><code><span class="kn">import</span> <span class="s">'package:flutter_test/flutter_test.dart'</span><span class="o">;</span>
+<span class="kn">import</span> <span class="s">'package:flutter_testing/counter.dart'</span><span class="o">;</span>
+
+<span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="o">)</span> <span class="o">{</span>
+  <span class="c1">// 使用 group 合并多个测试。用来测试多个有关联的测试</span>
+  <span class="n">group</span><span class="o">(</span><span class="s">"Counter"</span><span class="o">,</span> <span class="o">()</span> <span class="o">{</span>
+    <span class="n">test</span><span class="o">(</span><span class="s">"value should start at 0"</span><span class="o">,</span> <span class="o">()</span> <span class="o">{</span>
+      <span class="n">expect</span><span class="o">(</span><span class="n">Counter</span><span class="o">().</span><span class="na">value</span><span class="o">,</span> <span class="mi">0</span><span class="o">);</span>
+    <span class="o">});</span>
+
+    <span class="n">test</span><span class="o">(</span><span class="s">"value should be increment"</span><span class="o">,</span> <span class="o">()</span> <span class="o">{</span>
+      <span class="kd">final</span> <span class="n">counter</span> <span class="o">=</span> <span class="n">Counter</span><span class="o">();</span>
+
+      <span class="n">counter</span><span class="o">.</span><span class="na">increment</span><span class="o">();</span>
+
+      <span class="n">expect</span><span class="o">(</span><span class="n">counter</span><span class="o">.</span><span class="na">value</span><span class="o">,</span> <span class="mi">1</span><span class="o">);</span>
+    <span class="o">});</span>
+
+    <span class="n">test</span><span class="o">(</span><span class="s">"value should be decremented"</span><span class="o">,</span> <span class="o">()</span> <span class="o">{</span>
+      <span class="kd">final</span> <span class="n">counter</span> <span class="o">=</span> <span class="n">Counter</span><span class="o">();</span>
+
+      <span class="n">counter</span><span class="o">.</span><span class="na">decrement</span><span class="o">();</span>
+
+      <span class="n">expect</span><span class="o">(</span><span class="n">counter</span><span class="o">.</span><span class="na">value</span><span class="o">,</span> <span class="o">-</span><span class="mi">1</span><span class="o">);</span>
+    <span class="o">});</span>
+  <span class="o">});</span>
+<span class="o">}</span>
+</code></pre></td></tr></tbody></table></div></div>
+
+<h4 id="6执行单元测试">6.执行单元测试</h4>
+<p>如果使用的是 Android Studio 或者 Idea 开发的话，那么直接点击侧边的运行按钮来执行或者调试：</p>
+
+<p><img src="https://user-gold-cdn.xitu.io/2019/9/29/16d7ca58ca76c1b2?w=642&amp;h=397&amp;f=png&amp;s=68970" alt="" /></p>
+
+<p>如果使用的是 VSCode ，则可以使用命令来执行测试：</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1</pre></td><td class="code"><pre class="highlight"><code>flutter <span class="nb">test test</span>/counter_test.dart
+</code></pre></td></tr></tbody></table></div></div>
+
+<h3 id="网络接口测试">网络接口测试</h3>
+<p>同样的，在 <strong>test</strong> 目录下新建一个文件，如：<code class="highlighter-rouge">http_test.dart</code>，在这个文件中去请求一个接口，然后验证返回的结果：</p>
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9<br/>10<br/>11<br/>12<br/>13<br/>14<br/>15<br/>16<br/>17<br/>18<br/>19<br/>20<br/>21<br/>22<br/>23<br/>24<br/>25<br/>26<br/>27</pre></td><td class="code"><pre class="highlight"><code><span class="kn">import</span> <span class="s">'package:flutter_test/flutter_test.dart'</span><span class="o">;</span>
+<span class="kn">import</span> <span class="s">'package:http/http.dart'</span> <span class="k">as</span> <span class="n">http</span><span class="o">;</span>
+
+<span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="o">)</span> <span class="o">{</span>
+  <span class="n">test</span><span class="o">(</span><span class="s">"测试网络请求"</span><span class="o">,</span> <span class="o">()</span> <span class="n">async</span> <span class="o">{</span>
+    <span class="c1">// 假如这个请求需要一个 token</span>
+    <span class="kd">final</span> <span class="n">token</span> <span class="o">=</span> <span class="s">"54321"</span><span class="o">;</span>
+    <span class="kd">final</span> <span class="n">response</span> <span class="o">=</span> <span class="n">await</span> <span class="n">http</span><span class="o">.</span><span class="na">get</span><span class="o">(</span>
+      <span class="s">"https://api.myjson.com/bins/18mjgh"</span><span class="o">,</span>
+      <span class="nl">headers:</span> <span class="o">{</span><span class="s">"token"</span><span class="o">:</span> <span class="n">token</span><span class="o">},</span>
+    <span class="o">);</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">response</span><span class="o">.</span><span class="na">statusCode</span> <span class="o">==</span> <span class="mi">200</span><span class="o">)</span> <span class="o">{</span>
+      <span class="c1">// 验证请求 header 中的 token</span>
+      <span class="n">expect</span><span class="o">(</span><span class="n">response</span><span class="o">.</span><span class="na">request</span><span class="o">.</span><span class="na">headers</span><span class="o">[</span><span class="s">'token'</span><span class="o">],</span> <span class="n">token</span><span class="o">);</span>
+      <span class="n">print</span><span class="o">(</span><span class="n">response</span><span class="o">.</span><span class="na">request</span><span class="o">.</span><span class="na">headers</span><span class="o">[</span><span class="s">'token'</span><span class="o">]);</span>
+      <span class="n">print</span><span class="o">(</span><span class="n">response</span><span class="o">.</span><span class="na">body</span><span class="o">);</span>
+      <span class="c1">// 解析返回的 json</span>
+      <span class="n">Person</span> <span class="n">person</span> <span class="o">=</span> <span class="n">parsePersonJson</span><span class="o">(</span><span class="n">response</span><span class="o">.</span><span class="na">body</span><span class="o">);</span>
+      <span class="c1">// 验证 person 对象不为空</span>
+      <span class="n">expect</span><span class="o">(</span><span class="n">person</span><span class="o">,</span> <span class="n">isNotNull</span><span class="o">);</span>
+      <span class="c1">// 检测 person 对象中的属性值是否都正确</span>
+      <span class="n">expect</span><span class="o">(</span><span class="n">person</span><span class="o">.</span><span class="na">name</span><span class="o">,</span> <span class="s">"Lili"</span><span class="o">);</span>
+      <span class="n">expect</span><span class="o">(</span><span class="n">person</span><span class="o">.</span><span class="na">age</span><span class="o">,</span> <span class="mi">20</span><span class="o">);</span>
+      <span class="n">expect</span><span class="o">(</span><span class="n">person</span><span class="o">.</span><span class="na">country</span><span class="o">,</span> <span class="s">'China'</span><span class="o">);</span>
+    <span class="o">}</span>
+  <span class="o">});</span>
+<span class="o">}</span>
+</code></pre></td></tr></tbody></table></div></div>
+
+<h3 id="使用-mockito-来模拟对象依赖">使用 <a href="https://pub.flutter-io.cn/packages/mockito">Mockito</a> 来模拟对象依赖</h3>
+<p>首先，添加 mockito 的依赖到 pubspec.yaml 中：</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2</pre></td><td class="code"><pre class="highlight"><code><span class="na">dev_dependencies</span><span class="pi">:</span>
+  <span class="na">mockito</span><span class="pi">:</span> <span class="s">4.1.1</span>
+</code></pre></td></tr></tbody></table></div></div>
+
+<p>然后新建一个被测试的类：</p>
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9<br/>10<br/>11<br/>12</pre></td><td class="code"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">A</span> <span class="o">{</span>
+  <span class="kt">int</span> <span class="n">calculate</span><span class="o">(</span><span class="n">B</span> <span class="n">b</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kt">int</span> <span class="n">randomNum</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="na">getRandomNum</span><span class="o">();</span>
+    <span class="k">return</span> <span class="n">randomNum</span> <span class="o">*</span> <span class="mi">2</span><span class="o">;</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">B</span> <span class="o">{</span>
+  <span class="kt">int</span> <span class="n">getRandomNum</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">Random</span><span class="o">().</span><span class="na">nextInt</span><span class="o">(</span><span class="mi">100</span><span class="o">);</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></tbody></table></div></div>
+<blockquote>
+  <p>上述代码中，类 A 的 calculate 方法是依赖类 B 的。这时测试 <code class="highlighter-rouge">calculate</code> 方法的时候可以使用 mockito 来模拟一个类 B</p>
+</blockquote>
+
+<p>接着新建一个测试类：</p>
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9<br/>10<br/>11<br/>12<br/>13<br/>14<br/>15<br/>16<br/>17<br/>18<br/>19</pre></td><td class="code"><pre class="highlight"><code><span class="kn">import</span> <span class="s">'package:flutter_test/flutter_test.dart'</span><span class="o">;</span>
+<span class="kn">import</span> <span class="s">'package:flutter_testing/mock_d.dart'</span><span class="o">;</span>
+<span class="kn">import</span> <span class="s">'package:mockito/mockito.dart'</span><span class="o">;</span>
+
+<span class="c1">/// 使用 mockito 模拟一个类 B</span>
+<span class="kd">class</span> <span class="nc">MockB</span> <span class="kd">extends</span> <span class="n">Mock</span> <span class="kd">implements</span> <span class="n">B</span> <span class="o">{}</span>
+
+<span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="o">)</span> <span class="o">{</span>
+  <span class="n">test</span><span class="o">(</span><span class="s">"测试使用 mockito 来 mock 依赖"</span><span class="o">,</span> <span class="o">()</span> <span class="o">{</span>
+    <span class="kd">var</span> <span class="n">b</span> <span class="o">=</span> <span class="n">MockB</span><span class="o">();</span>
+    <span class="kd">var</span> <span class="n">a</span> <span class="o">=</span> <span class="n">A</span><span class="o">();</span>
+    <span class="c1">// 当调用 b.getRandomNum() 方法的时候返回 10</span>
+    <span class="n">when</span><span class="o">(</span><span class="n">b</span><span class="o">.</span><span class="na">getRandomNum</span><span class="o">()).</span><span class="na">thenReturn</span><span class="o">(</span><span class="mi">10</span><span class="o">);</span>
+    <span class="n">expect</span><span class="o">(</span><span class="n">a</span><span class="o">.</span><span class="na">calculate</span><span class="o">(</span><span class="n">b</span><span class="o">),</span> <span class="mi">20</span><span class="o">);</span>
+
+    <span class="c1">// 检查 b.getRandomNum(); 是否调用过</span>
+    <span class="n">verify</span><span class="o">(</span><span class="n">b</span><span class="o">.</span><span class="na">getRandomNum</span><span class="o">());</span>
+  <span class="o">});</span>
+<span class="o">}</span>
+</code></pre></td></tr></tbody></table></div></div>
+
+<p>官方文档上还有一个这样的例子，是使用 mockito 来模拟接口返回的数据，要测试的方法如下：</p>
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9</pre></td><td class="code"><pre class="highlight"><code><span class="n">Future</span><span class="o">&lt;</span><span class="n">Post</span><span class="o">&gt;</span> <span class="n">fetchPost</span><span class="o">(</span><span class="n">http</span><span class="o">.</span><span class="na">Client</span> <span class="n">client</span><span class="o">)</span> <span class="n">async</span> <span class="o">{</span>
+  <span class="kd">final</span> <span class="n">response</span> <span class="o">=</span>
+      <span class="n">await</span> <span class="n">client</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">"https://jsonplaceholder.typicode.com/posts/1"</span><span class="o">);</span>
+  <span class="k">if</span> <span class="o">(</span><span class="n">response</span><span class="o">.</span><span class="na">statusCode</span> <span class="o">==</span> <span class="mi">200</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">Post</span><span class="o">.</span><span class="na">fromJson</span><span class="o">(</span><span class="n">json</span><span class="o">.</span><span class="na">decode</span><span class="o">(</span><span class="n">response</span><span class="o">.</span><span class="na">body</span><span class="o">));</span>
+  <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+    <span class="k">throw</span> <span class="n">Exception</span><span class="o">(</span><span class="s">'Failed to load post'</span><span class="o">);</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></tbody></table></div></div>
+
+<p>上述方法中就是请求一个接口，请求成功则解析返回，否则抛出异常。测试该方法的代码如下：</p>
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9<br/>10<br/>11<br/>12<br/>13<br/>14<br/>15<br/>16<br/>17<br/>18<br/>19<br/>20<br/>21<br/>22<br/>23<br/>24<br/>25<br/>26<br/>27<br/>28<br/>29<br/>30<br/>31<br/>32<br/>33<br/>34<br/>35</pre></td><td class="code"><pre class="highlight"><code><span class="kn">import</span> <span class="s">'package:flutter_test/flutter_test.dart'</span><span class="o">;</span>
+<span class="kn">import</span> <span class="s">'package:flutter_testing/post_service.dart'</span><span class="o">;</span>
+<span class="kn">import</span> <span class="s">'package:http/http.dart'</span> <span class="k">as</span> <span class="n">http</span><span class="o">;</span>
+<span class="kn">import</span> <span class="s">'package:mockito/mockito.dart'</span><span class="o">;</span>
+
+<span class="c1">/// 使用 mock 模拟一个 http.Client 对象</span>
+<span class="kd">class</span> <span class="nc">MockClient</span> <span class="kd">extends</span> <span class="n">Mock</span> <span class="kd">implements</span> <span class="n">http</span><span class="o">.</span><span class="na">Client</span> <span class="o">{}</span>
+
+<span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="o">)</span> <span class="o">{</span>
+  <span class="n">group</span><span class="o">(</span><span class="s">"fetchPost"</span><span class="o">,</span> <span class="o">()</span> <span class="o">{</span>
+    <span class="n">test</span><span class="o">(</span><span class="s">"接口返回数据正确"</span><span class="o">,</span> <span class="o">()</span> <span class="n">async</span> <span class="o">{</span>
+      <span class="kd">final</span> <span class="n">client</span> <span class="o">=</span> <span class="n">MockClient</span><span class="o">();</span>
+
+      <span class="c1">// 当调用指定的接口的时候返回指定的数据</span>
+      <span class="n">when</span><span class="o">(</span><span class="n">client</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">"https://jsonplaceholder.typicode.com/posts/1"</span><span class="o">))</span>
+          <span class="o">.</span><span class="na">thenAnswer</span><span class="o">((</span><span class="n">_</span><span class="o">)</span> <span class="n">async</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">http</span><span class="o">.</span><span class="na">Response</span><span class="o">(</span>
+            <span class="s">'{"title": "test title", "body": "test body"}'</span><span class="o">,</span> <span class="mi">200</span><span class="o">);</span>
+      <span class="o">});</span>
+      <span class="kd">var</span> <span class="n">post</span> <span class="o">=</span> <span class="n">await</span> <span class="n">fetchPost</span><span class="o">(</span><span class="n">client</span><span class="o">);</span>
+      <span class="n">expect</span><span class="o">(</span><span class="n">post</span><span class="o">.</span><span class="na">title</span><span class="o">,</span> <span class="s">"test title"</span><span class="o">);</span>
+    <span class="o">});</span>
+
+    <span class="n">test</span><span class="o">(</span><span class="s">"接口返回数据错误，抛出异常"</span><span class="o">,</span> <span class="o">()</span> <span class="o">{</span>
+      <span class="kd">final</span> <span class="n">client</span> <span class="o">=</span> <span class="n">MockClient</span><span class="o">();</span>
+
+      <span class="c1">// 当调用这个接口的时候返回 Not Found</span>
+      <span class="n">when</span><span class="o">(</span><span class="n">client</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">"https://jsonplaceholder.typicode.com/posts/1"</span><span class="o">))</span>
+          <span class="o">.</span><span class="na">thenAnswer</span><span class="o">((</span><span class="n">_</span><span class="o">)</span> <span class="n">async</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">http</span><span class="o">.</span><span class="na">Response</span><span class="o">(</span><span class="s">'Not Found'</span><span class="o">,</span> <span class="mi">404</span><span class="o">);</span>
+      <span class="o">});</span>
+      <span class="n">expect</span><span class="o">(</span><span class="n">fetchPost</span><span class="o">(</span><span class="n">client</span><span class="o">),</span> <span class="n">throwsException</span><span class="o">);</span>
+    <span class="o">});</span>
+  <span class="o">});</span>
+<span class="o">}</span>
+</code></pre></td></tr></tbody></table></div></div>
+<h2 id="widget-测试">Widget 测试</h2>
+<p>Widget 测试和单元测试一个很明显的区别就是 Widget 测试使用的顶层函数是 <code class="highlighter-rouge">testWidgets</code>，该函数的写法如下：</p>
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3</pre></td><td class="code"><pre class="highlight"><code><span class="n">testWidgets</span><span class="o">(</span><span class="s">'这是一个 Widget 测试'</span><span class="o">,</span> <span class="o">(</span><span class="n">WidgetTester</span> <span class="n">tester</span><span class="o">){</span>
+
+<span class="o">});</span>
+</code></pre></td></tr></tbody></table></div></div>
+
+<p>我们可以使用 <code class="highlighter-rouge">WidgetTester</code> 来 build 需要测试的 widget，或者执行重绘(相当于调用了 <code class="highlighter-rouge">setState(...)</code> 方法。</p>
+
+<p>还有就是可以使用另外一个顶层函数 <code class="highlighter-rouge">find</code> 来定位到需要操作的 widget，如：</p>
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4</pre></td><td class="code"><pre class="highlight"><code><span class="n">find</span><span class="o">.</span><span class="na">text</span><span class="o">(</span><span class="s">'title'</span><span class="o">);</span> <span class="c1">// 通过 text 来定位 widget</span>
+<span class="n">find</span><span class="o">.</span><span class="na">byIcon</span><span class="o">(</span><span class="n">Icons</span><span class="o">.</span><span class="na">add</span><span class="o">);</span> <span class="c1">// 通过 Icon 来定位 widget</span>
+<span class="n">find</span><span class="o">.</span><span class="na">byWidget</span><span class="o">(</span><span class="n">myWidget</span><span class="o">);</span> <span class="c1">// 通过 widget 的引用来定位 widget</span>
+<span class="n">find</span><span class="o">.</span><span class="na">byKey</span><span class="o">(</span><span class="n">Key</span><span class="o">(</span><span class="s">'value'</span><span class="o">));</span> <span class="c1">// 通过 key 来定位 widget</span>
+</code></pre></td></tr></tbody></table></div></div>
+
+<h3 id="测试页面中是否包含某一个-widget">测试页面中是否包含某一个 widget</h3>
+<p>待测试的页面 MyWidget</p>
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9<br/>10<br/>11<br/>12<br/>13<br/>14<br/>15<br/>16<br/>17<br/>18<br/>19<br/>20<br/>21<br/>22</pre></td><td class="code"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">MyWidget</span> <span class="kd">extends</span> <span class="n">StatelessWidget</span> <span class="o">{</span>
+  <span class="kd">final</span> <span class="kt">String</span> <span class="n">title</span><span class="o">;</span>
+  <span class="kd">final</span> <span class="kt">String</span> <span class="n">message</span><span class="o">;</span>
+
+  <span class="kd">const</span> <span class="n">MyWidget</span><span class="o">({</span><span class="n">Key</span> <span class="n">key</span><span class="o">,</span> <span class="nd">@required</span> <span class="k">this</span><span class="o">.</span><span class="na">title</span><span class="o">,</span> <span class="nd">@required</span> <span class="k">this</span><span class="o">.</span><span class="na">message</span><span class="o">})</span>
+      <span class="o">:</span> <span class="k">super</span><span class="o">(</span><span class="nl">key:</span> <span class="n">key</span><span class="o">);</span>
+
+  <span class="nd">@override</span>
+  <span class="n">Widget</span> <span class="n">build</span><span class="o">(</span><span class="n">BuildContext</span> <span class="n">context</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">MaterialApp</span><span class="o">(</span>
+      <span class="nl">title:</span> <span class="s">'Flutter Demo'</span><span class="o">,</span>
+      <span class="nl">home:</span> <span class="n">Scaffold</span><span class="o">(</span>
+        <span class="nl">appBar:</span> <span class="n">AppBar</span><span class="o">(</span>
+          <span class="nl">title:</span> <span class="n">Text</span><span class="o">(</span><span class="n">title</span><span class="o">),</span>
+        <span class="o">),</span>
+        <span class="nl">body:</span> <span class="n">Center</span><span class="o">(</span>
+          <span class="nl">child:</span> <span class="n">Text</span><span class="o">(</span><span class="n">message</span><span class="o">),</span>
+        <span class="o">),</span>
+      <span class="o">),</span>
+    <span class="o">);</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></tbody></table></div></div>
+
+<p>上述页面中，有两个 Text 分别为 text(title) 和 text(message)，下面编写测试类来验证页面中是否包含着两个 Text：</p>
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9<br/>10<br/>11<br/>12<br/>13<br/>14</pre></td><td class="code"><pre class="highlight"><code>  <span class="n">testWidgets</span><span class="o">(</span><span class="s">"MyWidget has a title and message"</span><span class="o">,</span> <span class="o">(</span><span class="n">WidgetTester</span> <span class="n">tester</span><span class="o">)</span> <span class="n">async</span> <span class="o">{</span>
+    <span class="c1">// 加载 MyWidget</span>
+    <span class="n">await</span> <span class="n">tester</span><span class="o">.</span><span class="na">pumpWidget</span><span class="o">(</span><span class="n">MyWidget</span><span class="o">(</span>
+      <span class="nl">title:</span> <span class="s">"T"</span><span class="o">,</span>
+      <span class="nl">message:</span> <span class="s">"M"</span><span class="o">,</span>
+    <span class="o">));</span>
+
+    <span class="kd">final</span> <span class="n">titleFinder</span> <span class="o">=</span> <span class="n">find</span><span class="o">.</span><span class="na">text</span><span class="o">(</span><span class="s">'T'</span><span class="o">);</span>
+    <span class="kd">final</span> <span class="n">messageFinder</span> <span class="o">=</span> <span class="n">find</span><span class="o">.</span><span class="na">text</span><span class="o">(</span><span class="s">'M'</span><span class="o">);</span>
+    
+    <span class="c1">// 验证页面中是否含有上述的两个 Text</span>
+    <span class="n">expect</span><span class="o">(</span><span class="n">titleFinder</span><span class="o">,</span> <span class="n">findsOneWidget</span><span class="o">);</span>
+    <span class="n">expect</span><span class="o">(</span><span class="n">messageFinder</span><span class="o">,</span> <span class="n">findsOneWidget</span><span class="o">);</span>
+  <span class="o">});</span>
+</code></pre></td></tr></tbody></table></div></div>
+<blockquote>
+  <p>注意：待测试的 widget 需要用 MaterialApp() 包裹；</p>
+</blockquote>
+
+<p>上述代码中的 findsOneWidget 表示在页面中发现了一个与 titleFinder 对应的 Widget，与之对应的还有 findsNothing 表示页面中没有要寻找的 Widget</p>
+
+<h3 id="测试页面中和用户交互的部分">测试页面中和用户交互的部分</h3>
+<p>上一个实例中，我们使用 WidgetTester 来找页面中的 widget，WidgetTester 还能帮助我们模拟输入，点击，滑动操作，下面，还是官方的例子：</p>
+
+<p>待测试的页面如下：</p>
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9<br/>10<br/>11<br/>12<br/>13<br/>14<br/>15<br/>16<br/>17<br/>18<br/>19<br/>20<br/>21<br/>22<br/>23<br/>24<br/>25<br/>26<br/>27<br/>28<br/>29<br/>30<br/>31<br/>32<br/>33<br/>34<br/>35<br/>36<br/>37<br/>38<br/>39<br/>40<br/>41<br/>42<br/>43<br/>44<br/>45<br/>46<br/>47<br/>48<br/>49<br/>50<br/>51<br/>52<br/>53<br/>54<br/>55<br/>56<br/>57<br/>58<br/>59<br/>60</pre></td><td class="code"><pre class="highlight"><code><span class="kn">import</span> <span class="s">'package:flutter/material.dart'</span><span class="o">;</span>
+
+<span class="c1">/// Date: 2019-09-29 14:44</span>
+<span class="c1">/// Author: Liusilong</span>
+<span class="c1">/// Description:</span>
+<span class="c1">//</span>
+
+<span class="kd">class</span> <span class="nc">TodoList</span> <span class="kd">extends</span> <span class="n">StatefulWidget</span> <span class="o">{</span>
+  <span class="nd">@override</span>
+  <span class="n">_TodoListState</span> <span class="n">createState</span><span class="o">()</span> <span class="o">=&gt;</span> <span class="n">_TodoListState</span><span class="o">();</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">_TodoListState</span> <span class="kd">extends</span> <span class="n">State</span><span class="o">&lt;</span><span class="n">TodoList</span><span class="o">&gt;</span> <span class="o">{</span>
+  <span class="kd">static</span> <span class="kd">const</span> <span class="n">_appTitle</span> <span class="o">=</span> <span class="s">'Todo List'</span><span class="o">;</span>
+  <span class="kd">final</span> <span class="n">todos</span> <span class="o">=</span> <span class="o">&lt;</span><span class="kt">String</span><span class="o">&gt;[];</span>
+  <span class="kd">final</span> <span class="n">controller</span> <span class="o">=</span> <span class="n">TextEditingController</span><span class="o">();</span>
+  <span class="nd">@override</span>
+  <span class="n">Widget</span> <span class="n">build</span><span class="o">(</span><span class="n">BuildContext</span> <span class="n">context</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">MaterialApp</span><span class="o">(</span>
+      <span class="nl">title:</span> <span class="n">_appTitle</span><span class="o">,</span>
+      <span class="nl">home:</span> <span class="n">Scaffold</span><span class="o">(</span>
+        <span class="nl">appBar:</span> <span class="n">AppBar</span><span class="o">(</span>
+          <span class="nl">title:</span> <span class="n">Text</span><span class="o">(</span><span class="n">_appTitle</span><span class="o">),</span>
+        <span class="o">),</span>
+        <span class="nl">body:</span> <span class="n">Column</span><span class="o">(</span>
+          <span class="nl">children:</span> <span class="o">&lt;</span><span class="n">Widget</span><span class="o">&gt;[</span>
+            <span class="n">TextField</span><span class="o">(</span>
+              <span class="nl">controller:</span> <span class="n">controller</span><span class="o">,</span>
+            <span class="o">),</span>
+            <span class="n">Expanded</span><span class="o">(</span>
+              <span class="nl">child:</span> <span class="n">ListView</span><span class="o">.</span><span class="na">builder</span><span class="o">(</span>
+                  <span class="nl">itemCount:</span> <span class="n">todos</span><span class="o">.</span><span class="na">length</span><span class="o">,</span>
+                  <span class="nl">itemBuilder:</span> <span class="o">(</span><span class="n">BuildContext</span> <span class="n">context</span><span class="o">,</span> <span class="kt">int</span> <span class="n">index</span><span class="o">)</span> <span class="o">{</span>
+                    <span class="kd">final</span> <span class="n">todo</span> <span class="o">=</span> <span class="n">todos</span><span class="o">[</span><span class="n">index</span><span class="o">];</span>
+                    <span class="k">return</span> <span class="n">Dismissible</span><span class="o">(</span>
+                      <span class="nl">key:</span> <span class="n">Key</span><span class="o">(</span><span class="s">'</span><span class="si">$todo$index</span><span class="s">'</span><span class="o">),</span>
+                      <span class="nl">onDismissed:</span> <span class="o">(</span><span class="n">direction</span><span class="o">)</span> <span class="o">=&gt;</span> <span class="n">todos</span><span class="o">.</span><span class="na">removeAt</span><span class="o">(</span><span class="n">index</span><span class="o">),</span>
+                      <span class="nl">child:</span> <span class="n">ListTile</span><span class="o">(</span><span class="nl">title:</span> <span class="n">Text</span><span class="o">(</span><span class="n">todo</span><span class="o">)),</span>
+                      <span class="nl">background:</span> <span class="n">Container</span><span class="o">(</span><span class="nl">color:</span> <span class="n">Colors</span><span class="o">.</span><span class="na">red</span><span class="o">),</span>
+                    <span class="o">);</span>
+                  <span class="o">}),</span>
+            <span class="o">),</span>
+          <span class="o">],</span>
+        <span class="o">),</span>
+        <span class="nl">floatingActionButton:</span> <span class="n">FloatingActionButton</span><span class="o">(</span>
+          <span class="nl">onPressed:</span> <span class="o">()</span> <span class="o">{</span>
+            <span class="n">setState</span><span class="o">(()</span> <span class="o">{</span>
+              <span class="k">if</span> <span class="o">(</span><span class="n">controller</span><span class="o">.</span><span class="na">text</span><span class="o">.</span><span class="na">isNotEmpty</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">todos</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">controller</span><span class="o">.</span><span class="na">text</span><span class="o">);</span>
+                <span class="n">controller</span><span class="o">.</span><span class="na">clear</span><span class="o">();</span>
+              <span class="o">}</span>
+            <span class="o">});</span>
+          <span class="o">},</span>
+          <span class="nl">child:</span> <span class="n">Icon</span><span class="o">(</span><span class="n">Icons</span><span class="o">.</span><span class="na">add</span><span class="o">),</span>
+        <span class="o">),</span>
+      <span class="o">),</span>
+    <span class="o">);</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre></td></tr></tbody></table></div></div>
+
+<p>该页面的运行效果如下：</p>
+
+<p><img src="https://user-gold-cdn.xitu.io/2019/9/29/16d7d8d0fc500018?w=632&amp;h=1168&amp;f=png&amp;s=66929" alt="" /></p>
+
+<p>测试类如下：</p>
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9<br/>10<br/>11<br/>12<br/>13<br/>14<br/>15<br/>16<br/>17<br/>18<br/>19<br/>20<br/>21<br/>22</pre></td><td class="code"><pre class="highlight"><code>  <span class="n">testWidgets</span><span class="o">(</span><span class="s">'Add and remove a todo'</span><span class="o">,</span> <span class="o">(</span><span class="n">WidgetTester</span> <span class="n">tester</span><span class="o">)</span> <span class="n">async</span> <span class="o">{</span>
+    <span class="c1">// Build the widget</span>
+    <span class="n">await</span> <span class="n">tester</span><span class="o">.</span><span class="na">pumpWidget</span><span class="o">(</span><span class="n">TodoList</span><span class="o">());</span>
+    <span class="c1">// 往输入框中输入 hi</span>
+    <span class="n">await</span> <span class="n">tester</span><span class="o">.</span><span class="na">enterText</span><span class="o">(</span><span class="n">find</span><span class="o">.</span><span class="na">byType</span><span class="o">(</span><span class="n">TextField</span><span class="o">),</span> <span class="s">'hi'</span><span class="o">);</span>
+    <span class="c1">// 点击 button 来触发事件</span>
+    <span class="n">await</span> <span class="n">tester</span><span class="o">.</span><span class="na">tap</span><span class="o">(</span><span class="n">find</span><span class="o">.</span><span class="na">byType</span><span class="o">(</span><span class="n">FloatingActionButton</span><span class="o">));</span>
+    <span class="c1">// 让 widget 重绘</span>
+    <span class="n">await</span> <span class="n">tester</span><span class="o">.</span><span class="na">pump</span><span class="o">();</span>
+    <span class="c1">// 检测 text 是否添加到 List 中</span>
+    <span class="n">expect</span><span class="o">(</span><span class="n">find</span><span class="o">.</span><span class="na">text</span><span class="o">(</span><span class="s">'hi'</span><span class="o">),</span> <span class="n">findsOneWidget</span><span class="o">);</span>
+
+    <span class="c1">// 测试滑动</span>
+    <span class="n">await</span> <span class="n">tester</span><span class="o">.</span><span class="na">drag</span><span class="o">(</span><span class="n">find</span><span class="o">.</span><span class="na">byType</span><span class="o">(</span><span class="n">Dismissible</span><span class="o">),</span> <span class="n">Offset</span><span class="o">(</span><span class="mf">500.0</span><span class="o">,</span> <span class="mf">0.0</span><span class="o">));</span>
+
+    <span class="c1">// 页面会一直刷新，直到最后一帧绘制完成</span>
+    <span class="n">await</span> <span class="n">tester</span><span class="o">.</span><span class="na">pumpAndSettle</span><span class="o">();</span>
+
+    <span class="c1">// 验证页面中是否还有 hi 这个 item</span>
+    <span class="n">expect</span><span class="o">(</span><span class="n">find</span><span class="o">.</span><span class="na">text</span><span class="o">(</span><span class="s">'hi'</span><span class="o">),</span> <span class="n">findsNothing</span><span class="o">);</span>
+
+  <span class="o">});</span>
+</code></pre></td></tr></tbody></table></div></div>
+
+<p>其实我感觉只要业务逻辑和 UI 分离开来，单元测试写起来还是比较方便的。</p>
+
+<p>最近项目开始逐步转向使用 <a href="https://pub.flutter-io.cn/packages/provider">Provider</a> 来进行状态的管理。建议看看 <a href="https://www.filledstacks.com/post/flutter-architecture-my-provider-implementation-guide/">Flutter Architecture - My Provider Implementation Guide</a> 这个系列的文章，讲的很好。</p>
+
+<p>大致结构如下：
+<img src="https://user-gold-cdn.xitu.io/2019/9/29/16d7d9ffbacfd1a3?w=1064&amp;h=1106&amp;f=png&amp;s=85070" alt="" /></p>
+
+<p>最后，看了 <a href="https://www.filledstacks.com/post/flutter-architecture-my-provider-implementation-guide/">My Provider Implementation Guide</a> 系列的文章之后，写了一个 <a href="https://www.pgyer.com/za2V">APP</a>，有兴趣的可以下载体验下。</p>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            
+            <a href="/tag/#/Flutter" rel="tag"># Flutter</a>
+          
+        </div>
+      
+
+      
+      
+      
+      
+      
+
+      
+      
+        <div class="post-nav" id="post-nav-id">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/flutter/flutter-plugin" rel="next" title="Flutter 插件的创建及使用">
+                <i class="fa fa-chevron-left"></i> Flutter 插件的创建及使用
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/flutter/flutter-double-back-exit-app" rel="prev" title="Flutter 双击返回键退出 APP">
+                Flutter 双击返回键退出 APP <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+      
+
+      
+    </footer>
+  </article>
+
+  <div class="post-spread">
+    
+  </div>
+</div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+        
+        
+        
+
+
+
+
+
+
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/assets/images/avatar.gif"
+               alt="Liusilong" />
+          <p class="site-author-name" itemprop="name">Liusilong</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/">
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+        
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+
+
+
+
+
+
+
+            
+              <div class="post-toc-content">
+    <ol class=nav>
+      <li class="nav-item nav-level-2"> <a class="nav-link" href="#单元测试"> <span class="nav-number">1</span> <span class="nav-text">单元测试</span> </a> <ol class="nav-child"> <li class="nav-item nav-level-3"> <a class="nav-link" href="#网络接口测试"> <span class="nav-number">1.1</span> <span class="nav-text">网络接口测试</span> </a> </li> <li class="nav-item nav-level-3"> <a class="nav-link" href="#使用-mockito-来模拟对象依赖"> <span class="nav-number">1.2</span> <span class="nav-text">使用 Mockito 来模拟对象依赖</span> </a> </li> </ol> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#widget-测试"> <span class="nav-number">2</span> <span class="nav-text">Widget 测试</span> </a> <ol class="nav-child"> <li class="nav-item nav-level-3"> <a class="nav-link" href="#测试页面中是否包含某一个-widget"> <span class="nav-number">2.1</span> <span class="nav-text">测试页面中是否包含某一个 widget</span> </a> </li> <li class="nav-item nav-level-3"> <a class="nav-link" href="#测试页面中和用户交互的部分"> <span class="nav-number">2.2</span> <span class="nav-text">测试页面中和用户交互的部分</span> </a> </li> </ol> </li>
+    </ol>
+  </div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Liusilong</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://jekyllrb.com">Jekyll</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/simpleyyt/jekyll-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+   
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/assets/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/assets/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  <script type="text/javascript" src="/assets/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/assets/js/src/post-details.js?v=5.1.1"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/assets/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+    
+
+  
+
+
+
+
+
+
+
+  
+
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
+

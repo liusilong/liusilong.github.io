@@ -1,0 +1,1629 @@
+
+<!doctype html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/assets/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/assets/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/assets/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Flutter," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Liusilong" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/assets/images/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="在 Flutter 项目的开发中，我们需要根据自己的业务需求来创建各种各样的插件，这里记录下关于 Flutter 插件的创建及使用的过程。">
+<meta name="keywords" content="Flutter">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Flutter 插件的创建及使用">
+<meta property="og:url" content="http://localhost:4000/flutter/flutter-plugin">
+<meta property="og:site_name" content="Liusilong">
+<meta property="og:description" content="在 Flutter 项目的开发中，我们需要根据自己的业务需求来创建各种各样的插件，这里记录下关于 Flutter 插件的创建及使用的过程。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2019/10/8/16daad87cb206f19?w=1812&amp;h=1088&amp;f=png&amp;s=120909">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2019/10/8/16daae74c2a750bc?w=608&amp;h=888&amp;f=png&amp;s=105241">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Flutter 插件的创建及使用">
+<meta name="twitter:description" content="在 Flutter 项目的开发中，我们需要根据自己的业务需求来创建各种各样的插件，这里记录下关于 Flutter 插件的创建及使用的过程。">
+<meta name="twitter:image" content="https://user-gold-cdn.xitu.io/2019/10/8/16daad87cb206f19?w=1812&amp;h=1088&amp;f=png&amp;s=120909">
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://localhost:4000/"/>
+
+
+
+
+
+  <title>Flutter 插件的创建及使用 | Liusilong</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Liusilong</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+<div id="posts" class="posts-expand">
+  
+  
+
+  
+
+  
+  
+  
+
+  <article class="post post-type- " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://localhost:4000/flutter/flutter-plugin">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Liusilong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="assets/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Liusilong">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+          
+          
+            Flutter 插件的创建及使用
+          
+        </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-10-09T01:35:36+08:00">
+                2019-10-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/category/#/Flutter" itemprop="url" rel="index">
+                    <span itemprop="name">Flutter</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+            
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <p>在 <a href="https://flutter.dev/docs">Flutter</a> 项目的开发中，我们需要根据自己的业务需求来创建各种各样的插件，这里记录下关于 Flutter 插件的创建及使用的过程。</p>
+
+<p><a href="https://flutter.dev/docs/development/packages-and-plugins/developing-packages#developing-plugin-packages">官方文档</a></p>
+
+<p>这里主要记录如下几点：</p>
+<ul>
+  <li><strong>插件的创建</strong></li>
+  <li><strong>获取 Android 中的上下文 Context</strong></li>
+  <li><strong>Dart 调用插件方法及传参</strong></li>
+  <li><strong>插件调用 Dart 的方法及传参</strong></li>
+  <li><strong>插件中监听 Activity 的生命周期及常用的回调方法</strong></li>
+  <li><strong>使用 Delegate 的方式来写插件</strong></li>
+  <li><strong>插件的几种依赖方式（pub、本地、git）</strong></li>
+  <li><strong>插件的上传及注意事项</strong></li>
+</ul>
+
+<h2 id="插件的创建">插件的创建</h2>
+<p>我们可以通过两种方式来创建插件，一种是使用 IDE（Android Studio 或者 Idea）来创建；另一种是通过命令来创建。</p>
+
+<h3 id="使用-ide-创建插件">使用 IDE 创建插件</h3>
+
+<p>在菜单栏中选择 <code class="highlighter-rouge">File -&gt; New -&gt; New Flutter Project</code> 会出现如下界面</p>
+
+<p><img src="https://user-gold-cdn.xitu.io/2019/10/8/16daad87cb206f19?w=1812&amp;h=1088&amp;f=png&amp;s=120909" alt="" /></p>
+
+<p>选中 <code class="highlighter-rouge">Flutter Plugin</code> 然后一路 <code class="highlighter-rouge">Next</code> 就可以了。</p>
+
+<h3 id="使用命令创建插件">使用命令创建插件</h3>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1</pre></td><td class="code"><pre class="highlight"><code>flutter create <span class="nt">--org</span> com.example <span class="nt">--template</span><span class="o">=</span>plugin plugin_name
+</code></pre></td></tr></tbody></table></div></div>
+
+<p>其中 <code class="highlighter-rouge">com.example</code> 是插件包名的一部分，<code class="highlighter-rouge">plugin_name</code> 是插件的名称。插件的完整包名为 <code class="highlighter-rouge">com.example.plugin_name</code></p>
+
+<h3 id="插件的目录结构">插件的目录结构</h3>
+<p>使用上述两种方式中的任一种创建完成之后，插件的目录结构如下：</p>
+
+<p><img src="https://user-gold-cdn.xitu.io/2019/10/8/16daae74c2a750bc?w=608&amp;h=888&amp;f=png&amp;s=105241" alt="" /></p>
+
+<p>图中包含的几个主要的目录分别为 <strong>android</strong>，<strong>example</strong>，<strong>ios</strong>，<strong>lib</strong> 这四个目录：</p>
+<ul>
+  <li>android 目录是一个完整的 Android 工程，用来开发 Android 端的插件功能</li>
+  <li>example 目录用来测试 Android 或者 IOS 端的插件功能</li>
+  <li>ios 目录是一个完整的 IOS 工程，用来开发 IOS 端的插件功能</li>
+  <li>lib 目录中的文件负责和 Android 或者 IOS 端的交互</li>
+</ul>
+
+<h2 id="获取-android-中的上下文-context">获取 Android 中的上下文 Context</h2>
+
+<p>当我们创建好插件之后，<strong>Android</strong> 工程 里面会有一个生成好的文件，这里是 <code class="highlighter-rouge">FlutterPluginDemoPlugin.java</code>，如下：</p>
+<div class="language-java highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9<br/>10<br/>11<br/>12<br/>13</pre></td><td class="code"><pre class="highlight"><code><span class="cm">/** FlutterPluginDemoPlugin */</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">FlutterPluginDemoPlugin</span> <span class="kd">implements</span> <span class="n">MethodCallHandler</span> <span class="o">{</span>
+  <span class="cm">/** Plugin registration.*/</span>
+  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">registerWith</span><span class="o">(</span><span class="n">Registrar</span> <span class="n">registrar</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">final</span> <span class="n">MethodChannel</span> <span class="n">channel</span> <span class="o">=</span> <span class="k">new</span> <span class="n">MethodChannel</span><span class="o">(</span><span class="n">registrar</span><span class="o">.</span><span class="na">messenger</span><span class="o">(),</span> <span class="s">"flutter_plugin_demo"</span><span class="o">);</span>
+    <span class="n">channel</span><span class="o">.</span><span class="na">setMethodCallHandler</span><span class="o">(</span><span class="k">new</span> <span class="n">FlutterPluginDemoPlugin</span><span class="o">());</span>
+  <span class="o">}</span>
+
+  <span class="nd">@Override</span>
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onMethodCall</span><span class="o">(</span><span class="n">MethodCall</span> <span class="n">call</span><span class="o">,</span> <span class="n">Result</span> <span class="n">result</span><span class="o">)</span> <span class="o">{</span>
+    <span class="c1">// 省略部分代码</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></tbody></table></div></div>
+
+<p>这个类中有一个与 Dart 层对应的 <code class="highlighter-rouge">MethodChannel</code>。</p>
+
+<p>这个时候，如果我们添加一个弹出 <code class="highlighter-rouge">Toast</code> 的方法。Toast 需要一个 Context 类型的参数，但是这个类中是没有提供类似 <code class="highlighter-rouge">this.getContext()</code> 的方法来提供。这个时候，需要使用<code class="highlighter-rouge">Registrar</code> 这个类来获取 <code class="highlighter-rouge">Context</code>。如下：</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9<br/>10<br/>11<br/>12<br/>13<br/>14<br/>15<br/>16<br/>17<br/>18<br/>19<br/>20<br/>21<br/>22<br/>23<br/>24<br/>25<br/>26<br/>27<br/>28</pre></td><td class="code"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">FlutterPluginDemoPlugin</span> <span class="kd">implements</span> <span class="n">MethodCallHandler</span> <span class="o">{</span>
+    <span class="c1">// 上下文 Context</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">Context</span> <span class="n">context</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">FlutterPluginDemoPlugin</span><span class="o">(</span><span class="n">Registrar</span> <span class="n">registrar</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">context</span> <span class="o">=</span> <span class="n">registrar</span><span class="o">.</span><span class="na">context</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="cm">/**
+     * Plugin registration.
+     */</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">registerWith</span><span class="o">(</span><span class="n">Registrar</span> <span class="n">registrar</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">final</span> <span class="n">MethodChannel</span> <span class="n">channel</span> <span class="o">=</span> <span class="k">new</span> <span class="n">MethodChannel</span><span class="o">(</span><span class="n">registrar</span><span class="o">.</span><span class="na">messenger</span><span class="o">(),</span> <span class="s">"flutter_plugin_demo"</span><span class="o">);</span>
+        <span class="n">channel</span><span class="o">.</span><span class="na">setMethodCallHandler</span><span class="o">(</span><span class="k">new</span> <span class="n">FlutterPluginDemoPlugin</span><span class="o">(</span><span class="n">registrar</span><span class="o">));</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onMethodCall</span><span class="o">(</span><span class="n">MethodCall</span> <span class="n">call</span><span class="o">,</span> <span class="n">Result</span> <span class="n">result</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">call</span><span class="o">.</span><span class="na">method</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="s">"getPlatformVersion"</span><span class="o">))</span> <span class="o">{</span>
+            <span class="n">result</span><span class="o">.</span><span class="na">success</span><span class="o">(</span><span class="s">"Android "</span> <span class="o">+</span> <span class="n">android</span><span class="o">.</span><span class="na">os</span><span class="o">.</span><span class="na">Build</span><span class="o">.</span><span class="na">VERSION</span><span class="o">.</span><span class="na">RELEASE</span><span class="o">);</span>
+        <span class="o">}</span> <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">call</span><span class="o">.</span><span class="na">method</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="s">"showToast"</span><span class="o">))</span> <span class="o">{</span>
+            <span class="c1">// 弹出 Toast</span>
+            <span class="n">Toast</span><span class="o">.</span><span class="na">makeText</span><span class="o">(</span><span class="n">context</span><span class="o">,</span> <span class="s">"来自 Android 端的 Toast"</span><span class="o">,</span> <span class="n">Toast</span><span class="o">.</span><span class="na">LENGTH_SHORT</span><span class="o">).</span><span class="na">show</span><span class="o">();</span>
+        <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+            <span class="n">result</span><span class="o">.</span><span class="na">notImplemented</span><span class="o">();</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></tbody></table></div></div>
+
+<p>对应的，在 <code class="highlighter-rouge">flutter_plugin_demo.dart</code> 文件中需要新增一个方法来触发弹出 Toast：</p>
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9<br/>10<br/>11<br/>12<br/>13<br/>14<br/>15</pre></td><td class="code"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">FlutterPluginDemo</span> <span class="o">{</span>
+  <span class="kd">static</span> <span class="kd">const</span> <span class="n">MethodChannel</span> <span class="n">_channel</span> <span class="o">=</span>
+      <span class="kd">const</span> <span class="n">MethodChannel</span><span class="o">(</span><span class="s">'flutter_plugin_demo'</span><span class="o">);</span>
+
+  <span class="kd">static</span> <span class="n">Future</span><span class="o">&lt;</span><span class="kt">String</span><span class="o">&gt;</span> <span class="kd">get</span> <span class="n">platformVersion</span> <span class="n">async</span> <span class="o">{</span>
+    <span class="kd">final</span> <span class="kt">String</span> <span class="n">version</span> <span class="o">=</span> <span class="n">await</span> <span class="n">_channel</span><span class="o">.</span><span class="na">invokeMethod</span><span class="o">(</span><span class="s">'getPlatformVersion'</span><span class="o">);</span>
+    <span class="k">return</span> <span class="n">version</span><span class="o">;</span>
+  <span class="o">}</span>
+  
+  <span class="c1">/// 弹出 Toast</span>
+  <span class="kd">static</span> <span class="n">Future</span><span class="o">&lt;</span><span class="kt">void</span><span class="o">&gt;</span> <span class="n">showToast</span><span class="o">()</span> <span class="n">async</span> <span class="o">{</span>
+    <span class="n">await</span> <span class="n">_channel</span><span class="o">.</span><span class="na">invokeMethod</span><span class="o">(</span><span class="s">"showToast"</span><span class="o">);</span>
+  <span class="o">}</span>
+
+<span class="o">}</span>
+</code></pre></td></tr></tbody></table></div></div>
+
+<p>然后在 example 工程中的去调用：</p>
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7</pre></td><td class="code"><pre class="highlight"><code><span class="nl">floatingActionButton:</span> <span class="n">FloatingActionButton</span><span class="o">(</span>
+  <span class="nl">onPressed:</span> <span class="o">()</span> <span class="n">async</span> <span class="o">{</span>
+    <span class="c1">/// 调用插件的 Toast 功能</span>
+    <span class="n">await</span> <span class="n">FlutterPluginDemo</span><span class="o">.</span><span class="na">showToast</span><span class="o">();</span>
+  <span class="o">},</span>
+  <span class="nl">child:</span> <span class="n">Icon</span><span class="o">(</span><span class="n">Icons</span><span class="o">.</span><span class="na">add</span><span class="o">),</span>
+<span class="o">),</span>
+</code></pre></td></tr></tbody></table></div></div>
+
+<h2 id="dart-调用原生方法时传递参数">Dart 调用原生方法时传递参数</h2>
+
+<p>将上述的 <code class="highlighter-rouge">showToast</code> 方法改成接收一个参数的方法：</p>
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4</pre></td><td class="code"><pre class="highlight"><code><span class="c1">/// [message] Toast 的内容</span>
+<span class="kd">static</span> <span class="n">Future</span><span class="o">&lt;</span><span class="kt">void</span><span class="o">&gt;</span> <span class="n">showToast</span><span class="o">({</span><span class="kt">String</span> <span class="n">message</span><span class="o">})</span> <span class="n">async</span> <span class="o">{</span>
+    <span class="n">await</span> <span class="n">_channel</span><span class="o">.</span><span class="na">invokeMethod</span><span class="o">(</span><span class="s">"showToast"</span><span class="o">,</span> <span class="n">message</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></td></tr></tbody></table></div></div>
+
+<p>在 Java 层就需要接收这个参数：</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2</pre></td><td class="code"><pre class="highlight"><code><span class="n">String</span> <span class="n">message</span> <span class="o">=</span> <span class="n">String</span> <span class="n">message</span> <span class="o">=</span> <span class="n">call</span><span class="o">.</span><span class="na">arguments</span><span class="o">();</span>
+<span class="n">Toast</span><span class="o">.</span><span class="na">makeText</span><span class="o">(</span><span class="n">context</span><span class="o">,</span> <span class="n">message</span><span class="o">,</span> <span class="n">Toast</span><span class="o">.</span><span class="na">LENGTH_SHORT</span><span class="o">).</span><span class="na">show</span><span class="o">();</span>
+</code></pre></td></tr></tbody></table></div></div>
+
+<p>有时候需要传递好多个参数，这个时候可以传递一个 Map，如下：</p>
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8</pre></td><td class="code"><pre class="highlight"><code><span class="c1">/// 传递 map 类型的参数</span>
+<span class="kd">static</span> <span class="n">Future</span><span class="o">&lt;</span><span class="kt">void</span><span class="o">&gt;</span> <span class="n">showToast</span><span class="o">()</span> <span class="n">async</span> <span class="o">{</span>
+    <span class="n">Map</span><span class="o">&lt;</span><span class="kt">String</span><span class="o">,</span> <span class="kt">String</span><span class="o">&gt;</span> <span class="n">params</span> <span class="o">=</span> <span class="n">Map</span><span class="o">&lt;</span><span class="kt">String</span><span class="o">,</span> <span class="kt">String</span><span class="o">&gt;();</span>
+    <span class="n">params</span><span class="o">[</span><span class="s">'name'</span><span class="o">]</span> <span class="o">=</span> <span class="s">'Lili'</span><span class="o">;</span>
+    <span class="n">params</span><span class="o">[</span><span class="s">'age'</span><span class="o">]</span> <span class="o">=</span> <span class="s">'20'</span><span class="o">;</span>
+    <span class="n">params</span><span class="o">[</span><span class="s">'country'</span><span class="o">]</span> <span class="o">=</span> <span class="s">'China'</span><span class="o">;</span>
+    <span class="n">await</span> <span class="n">_channel</span><span class="o">.</span><span class="na">invokeMethod</span><span class="o">(</span><span class="s">"showToast"</span><span class="o">,</span> <span class="n">params</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></td></tr></tbody></table></div></div>
+
+<p>Java 层接收：</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2</pre></td><td class="code"><pre class="highlight"><code><span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="n">params</span> <span class="o">=</span> <span class="n">call</span><span class="o">.</span><span class="na">arguments</span><span class="o">();</span>
+<span class="n">Toast</span><span class="o">.</span><span class="na">makeText</span><span class="o">(</span><span class="n">context</span><span class="o">,</span> <span class="n">params</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">"name"</span><span class="o">),</span> <span class="n">Toast</span><span class="o">.</span><span class="na">LENGTH_SHORT</span><span class="o">).</span><span class="na">show</span><span class="o">();</span>
+</code></pre></td></tr></tbody></table></div></div>
+
+<h2 id="原生向-dart-层发送通知">原生向 Dart 层发送通知</h2>
+
+<p>这里我们使用 <code class="highlighter-rouge">EventChannel</code> 来让原生向 Dart 层发送通知，使用 EventChannel 的步骤如下：</p>
+
+<ul>
+  <li>Dart 层定义一个 EventChannel</li>
+  <li>Dart 层监听该 EventChannel，用来接收该 EventChannel 上的事件</li>
+  <li>原生端定义一个 EventChannel</li>
+  <li>原生端向 Dart 层发送消息</li>
+</ul>
+
+<h3 id="dart-层定义-eventchannel">Dart 层定义 EventChannel</h3>
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1</pre></td><td class="code"><pre class="highlight"><code><span class="kd">static</span> <span class="kd">const</span> <span class="n">EventChannel</span> <span class="n">_eventChannel</span> <span class="o">=</span> <span class="n">EventChannel</span><span class="o">(</span><span class="s">"flutter_plugin_event"</span><span class="o">);</span>
+</code></pre></td></tr></tbody></table></div></div>
+
+<h3 id="dart-层监听该-eventchannel">Dart 层监听该 EventChannel</h3>
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4</pre></td><td class="code"><pre class="highlight"><code><span class="c1">// 这里的 data 就是原生端发送过来的数据</span>
+<span class="n">_eventChannel</span><span class="o">.</span><span class="na">receiveBroadcastStream</span><span class="o">().</span><span class="na">listen</span><span class="o">((</span><span class="n">data</span><span class="o">)</span> <span class="o">{</span>
+  <span class="c1">//streamController.sink.add(data);</span>
+<span class="o">});</span>
+</code></pre></td></tr></tbody></table></div></div>
+
+<h3 id="原生端定义-eventchannel">原生端定义 EventChannel</h3>
+<p>原生端里面，首先需要定义一个 <code class="highlighter-rouge">EventChannel</code> ，然后需要为其设置一个 <code class="highlighter-rouge">StreamHandler</code>，在 <code class="highlighter-rouge">StreamHandler</code> 的 <code class="highlighter-rouge">onListen</code> 方法中会有一个 <code class="highlighter-rouge">EventChannel.EventSink</code> 的参数，这个参数可以用来向 Dart 层发送消息。</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9<br/>10<br/>11<br/>12<br/>13<br/>14</pre></td><td class="code"><pre class="highlight"><code><span class="kd">private</span> <span class="n">EventChannel</span><span class="o">.</span><span class="na">EventSink</span> <span class="n">eventSink</span><span class="o">;</span>
+<span class="o">...</span>
+<span class="kd">final</span> <span class="n">EventChannel</span> <span class="n">eventChannel</span> <span class="o">=</span> <span class="k">new</span> <span class="n">EventChannel</span><span class="o">(</span><span class="n">registrar</span><span class="o">.</span><span class="na">messenger</span><span class="o">(),</span> <span class="s">"flutter_plugin_event"</span><span class="o">);</span>
+<span class="n">eventChannel</span><span class="o">.</span><span class="na">setStreamHandler</span><span class="o">(</span><span class="k">new</span> <span class="n">EventChannel</span><span class="o">.</span><span class="na">StreamHandler</span><span class="o">()</span> <span class="o">{</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onListen</span><span class="o">(</span><span class="n">Object</span> <span class="n">o</span><span class="o">,</span> <span class="n">EventChannel</span><span class="o">.</span><span class="na">EventSink</span> <span class="n">eventSink</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">FlutterPluginDemoPlugin</span><span class="o">.</span><span class="na">this</span><span class="o">.</span><span class="na">eventSink</span> <span class="o">=</span> <span class="n">eventSink</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onCancel</span><span class="o">(</span><span class="n">Object</span> <span class="n">o</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">FlutterPluginDemoPlugin</span><span class="o">.</span><span class="na">this</span><span class="o">.</span><span class="na">eventSink</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">});</span>
+</code></pre></td></tr></tbody></table></div></div>
+
+<h3 id="原生端向-dart-层发送消息">原生端向 Dart 层发送消息</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4</pre></td><td class="code"><pre class="highlight"><code><span class="c1">// 通知 Dart 层</span>
+<span class="k">if</span> <span class="o">(</span><span class="kc">null</span> <span class="o">!=</span> <span class="n">eventSink</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">eventSink</span><span class="o">.</span><span class="na">success</span><span class="o">(</span><span class="s">"Dart 调用 原始方法成功"</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></td></tr></tbody></table></div></div>
+
+<h2 id="插件中监听-activity-常用的生命周期方法的回调">插件中监听 Activity 常用的生命周期方法的回调</h2>
+
+<h3 id="生命周期方法回调">生命周期方法回调</h3>
+
+<p>有时候我们需要在 <code class="highlighter-rouge">Activity</code> 的生命周期方法中干一些事，比如友盟统计的时候，就需要在<code class="highlighter-rouge">Activity</code> 的 <code class="highlighter-rouge">onResume()</code>和 <code class="highlighter-rouge">onPause()</code> 中添加一些代码；</p>
+
+<p>要监听 <code class="highlighter-rouge">onCreate()</code>，<code class="highlighter-rouge">onStart()</code>，<code class="highlighter-rouge">onResume()</code> 等 方法的回调，需要借助 <code class="highlighter-rouge">Application.ActivityLifecycleCallbacks</code> 这个接口。</p>
+
+<p>首先写一个类 <code class="highlighter-rouge">LifeCycleCallbacks</code> 来 实现  <code class="highlighter-rouge">Application.ActivityLifecycleCallbacks</code> 这个接口，然后将其注册到 <code class="highlighter-rouge">Application</code> 的上下文中。</p>
+
+<p><code class="highlighter-rouge">Application.ActivityLifecycleCallbacks</code> 接口中提供的生命周期方法如下：</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9</pre></td><td class="code"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">ActivityLifecycleCallbacks</span> <span class="o">{</span>
+    <span class="kt">void</span> <span class="nf">onActivityCreated</span><span class="o">(</span><span class="n">Activity</span> <span class="n">activity</span><span class="o">,</span> <span class="n">Bundle</span> <span class="n">savedInstanceState</span><span class="o">);</span>
+    <span class="kt">void</span> <span class="nf">onActivityStarted</span><span class="o">(</span><span class="n">Activity</span> <span class="n">activity</span><span class="o">);</span>
+    <span class="kt">void</span> <span class="nf">onActivityResumed</span><span class="o">(</span><span class="n">Activity</span> <span class="n">activity</span><span class="o">);</span>
+    <span class="kt">void</span> <span class="nf">onActivityPaused</span><span class="o">(</span><span class="n">Activity</span> <span class="n">activity</span><span class="o">);</span>
+    <span class="kt">void</span> <span class="nf">onActivityStopped</span><span class="o">(</span><span class="n">Activity</span> <span class="n">activity</span><span class="o">);</span>
+    <span class="kt">void</span> <span class="nf">onActivitySaveInstanceState</span><span class="o">(</span><span class="n">Activity</span> <span class="n">activity</span><span class="o">,</span> <span class="n">Bundle</span> <span class="n">outState</span><span class="o">);</span>
+    <span class="kt">void</span> <span class="nf">onActivityDestroyed</span><span class="o">(</span><span class="n">Activity</span> <span class="n">activity</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></td></tr></tbody></table></div></div>
+
+<p>所以我们只需要写一个类来实现它就可以了。然后在对应的方法里面写对应的代码。</p>
+
+<p>接着就是注册了：</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7</pre></td><td class="code"><pre class="highlight"><code><span class="kd">public</span> <span class="nf">FlutterPluginDemoPlugin</span><span class="o">(</span><span class="n">Registrar</span> <span class="n">registrar</span><span class="o">)</span> <span class="o">{</span>
+    <span class="o">...</span>
+    <span class="o">...</span>
+    <span class="c1">// 注册声明周期方法的监听</span>
+    <span class="o">((</span><span class="n">Application</span><span class="o">)</span> <span class="n">registrar</span><span class="o">.</span><span class="na">context</span><span class="o">())</span>
+        <span class="o">.</span><span class="na">registerActivityLifecycleCallbacks</span><span class="o">(</span><span class="k">new</span> <span class="n">LifeCycleCallbacks</span><span class="o">());</span>
+<span class="o">}</span>
+</code></pre></td></tr></tbody></table></div></div>
+
+<p>最后在 <code class="highlighter-rouge">onActivityDestroyed</code> 生命周期方法中解注册</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9<br/>10</pre></td><td class="code"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">LifeCycleCallbacks</span> <span class="kd">implements</span> <span class="n">Application</span><span class="o">.</span><span class="na">ActivityLifecycleCallbacks</span> <span class="o">{</span>
+    <span class="o">...</span>
+    <span class="o">...</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onActivityDestroyed</span><span class="o">(</span><span class="n">Activity</span> <span class="n">activity</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">activity</span> <span class="o">==</span> <span class="n">registrar</span><span class="o">.</span><span class="na">activity</span><span class="o">())</span> <span class="o">{</span>
+            <span class="o">((</span><span class="n">Application</span><span class="o">)</span> <span class="n">registrar</span><span class="o">.</span><span class="na">context</span><span class="o">()).</span><span class="na">unregisterActivityLifecycleCallbacks</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>  
+<span class="o">}</span>
+</code></pre></td></tr></tbody></table></div></div>
+
+<h3 id="权限监听回调">权限监听回调</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9<br/>10<br/>11</pre></td><td class="code"><pre class="highlight"><code><span class="kd">public</span> <span class="nf">FlutterPluginDemoPlugin</span><span class="o">(</span><span class="n">Registrar</span> <span class="n">registrar</span><span class="o">)</span> <span class="o">{</span>
+        <span class="o">...</span>
+        <span class="o">...</span>
+        <span class="c1">// 权限监听回调</span>
+        <span class="n">registrar</span><span class="o">.</span><span class="na">addRequestPermissionsResultListener</span><span class="o">(</span><span class="k">new</span> <span class="n">PluginRegistry</span><span class="o">.</span><span class="na">RequestPermissionsResultListener</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nd">@Override</span>
+        <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">onRequestPermissionsResult</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">,</span> <span class="n">String</span><span class="o">[]</span> <span class="n">strings</span><span class="o">,</span> <span class="kt">int</span><span class="o">[]</span> <span class="n">ints</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">});</span>
+<span class="o">}</span>
+</code></pre></td></tr></tbody></table></div></div>
+<h3 id="startactivityforresult-的回调">startActivityForResult 的回调</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9<br/>10<br/>11</pre></td><td class="code"><pre class="highlight"><code><span class="kd">public</span> <span class="nf">FlutterPluginDemoPlugin</span><span class="o">(</span><span class="n">Registrar</span> <span class="n">registrar</span><span class="o">)</span> <span class="o">{</span>
+    <span class="o">...</span>
+    <span class="o">...</span>
+    <span class="c1">// startActivityForResult 回调</span>
+    <span class="n">registrar</span><span class="o">.</span><span class="na">addActivityResultListener</span><span class="o">(</span><span class="k">new</span> <span class="n">PluginRegistry</span><span class="o">.</span><span class="na">ActivityResultListener</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nd">@Override</span>
+        <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">onActivityResult</span><span class="o">(</span><span class="kt">int</span> <span class="n">requestCode</span><span class="o">,</span> <span class="kt">int</span> <span class="n">responseCode</span><span class="o">,</span> <span class="n">Intent</span> <span class="n">intent</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">});</span>
+<span class="o">}</span>
+</code></pre></td></tr></tbody></table></div></div>
+
+<h2 id="编写一个-delegate-类来处理业务逻辑">编写一个 Delegate 类来处理业务逻辑</h2>
+<p>上一小节中，我们在 <code class="highlighter-rouge">FlutterPluginDemoPlugin</code>这一个类中处理 <code class="highlighter-rouge">Activity</code> 的声明周期的回调方法，权限申请的回调方法，<code class="highlighter-rouge">Activity</code> 跳转的回调方法。这个时候，<code class="highlighter-rouge">FlutterPluginDemoPlugin</code> 这个类的代码就会显得非常的多。</p>
+
+<p>我们可以写一个类来帮助插件类处理这些事情，这里写一个 <code class="highlighter-rouge">PluginDelegate</code> 类来实现这个功能：</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9<br/>10<br/>11<br/>12<br/>13<br/>14<br/>15<br/>16<br/>17<br/>18<br/>19<br/>20<br/>21<br/>22<br/>23<br/>24<br/>25<br/>26<br/>27<br/>28<br/>29<br/>30<br/>31<br/>32<br/>33<br/>34<br/>35<br/>36<br/>37<br/>38</pre></td><td class="code"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">PluginDelegate</span> <span class="kd">implements</span>
+        <span class="n">Application</span><span class="o">.</span><span class="na">ActivityLifecycleCallbacks</span><span class="o">,</span>
+        <span class="n">PluginRegistry</span><span class="o">.</span><span class="na">RequestPermissionsResultListener</span><span class="o">,</span>
+        <span class="n">PluginRegistry</span><span class="o">.</span><span class="na">ActivityResultListener</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">Context</span> <span class="n">context</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">Application</span> <span class="n">application</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">PluginDelegate</span><span class="o">(</span><span class="n">PluginRegistry</span><span class="o">.</span><span class="na">Registrar</span> <span class="n">registrar</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">context</span> <span class="o">=</span> <span class="n">registrar</span><span class="o">.</span><span class="na">context</span><span class="o">();</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">application</span> <span class="o">=</span> <span class="o">(</span><span class="n">Application</span><span class="o">)</span> <span class="n">context</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">methodA</span><span class="o">(</span><span class="n">MethodCall</span> <span class="n">call</span><span class="o">,</span> <span class="n">MethodChannel</span><span class="o">.</span><span class="na">Result</span> <span class="n">result</span><span class="o">){</span>
+        <span class="c1">// do something...</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">methodB</span><span class="o">(</span><span class="n">MethodCall</span> <span class="n">call</span><span class="o">,</span> <span class="n">MethodChannel</span><span class="o">.</span><span class="na">Result</span> <span class="n">result</span><span class="o">){</span>
+        <span class="c1">// do something...</span>
+    <span class="o">}</span>
+    <span class="o">...</span>
+    <span class="o">...</span>
+    <span class="o">...</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onActivityDestroyed</span><span class="o">(</span><span class="n">Activity</span> <span class="n">activity</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">application</span><span class="o">.</span><span class="na">unregisterActivityLifecycleCallbacks</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">onRequestPermissionsResult</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">,</span> <span class="n">String</span><span class="o">[]</span> <span class="n">strings</span><span class="o">,</span> <span class="kt">int</span><span class="o">[]</span> <span class="n">ints</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">onActivityResult</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">,</span> <span class="kt">int</span> <span class="n">i1</span><span class="o">,</span> <span class="n">Intent</span> <span class="n">intent</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></tbody></table></div></div>
+
+<p>可以看出 <code class="highlighter-rouge">PluginDelegate</code> 类实现了上一小节中需要处理的三种回调的接口，那么我们在 <code class="highlighter-rouge">FlutterPluginDemoPlugin</code> 插件类中就可以这样：</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9<br/>10<br/>11<br/>12<br/>13<br/>14<br/>15<br/>16<br/>17<br/>18<br/>19<br/>20<br/>21<br/>22<br/>23<br/>24<br/>25<br/>26<br/>27<br/>28<br/>29<br/>30<br/>31<br/>32<br/>33<br/>34<br/>35<br/>36<br/>37<br/>38<br/>39<br/>40</pre></td><td class="code"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">FlutterPluginDemoPlugin</span> <span class="kd">implements</span> <span class="n">MethodCallHandler</span> <span class="o">{</span>
+    <span class="o">...</span>
+    <span class="o">...</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">PluginDelegate</span> <span class="n">delegate</span><span class="o">;</span>
+    
+    <span class="c1">// 构造方法</span>
+    <span class="kd">public</span> <span class="nf">FlutterPluginDemoPlugin</span><span class="o">(</span><span class="n">Registrar</span> <span class="n">registrar</span><span class="o">,</span> <span class="n">PluginDelegate</span> <span class="n">delegate</span><span class="o">)</span> <span class="o">{</span>
+        <span class="o">...</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">delegate</span> <span class="o">=</span> <span class="n">delegate</span><span class="o">;</span>
+        <span class="o">...</span>
+        <span class="c1">// 声明周期回调</span>
+        <span class="o">((</span><span class="n">Application</span><span class="o">)</span> <span class="n">context</span><span class="o">).</span><span class="na">registerActivityLifecycleCallbacks</span><span class="o">(</span><span class="n">delegate</span><span class="o">);</span>
+
+        <span class="c1">// 权限声明回调</span>
+        <span class="n">registrar</span><span class="o">.</span><span class="na">addRequestPermissionsResultListener</span><span class="o">(</span><span class="n">delegate</span><span class="o">);</span>
+
+        <span class="c1">// 页面跳转回调</span>
+        <span class="n">registrar</span><span class="o">.</span><span class="na">addActivityResultListener</span><span class="o">(</span><span class="n">delegate</span><span class="o">);</span>
+    <span class="o">}</span>
+    
+    <span class="cm">/**
+     * Plugin registration.
+     */</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">registerWith</span><span class="o">(</span><span class="n">Registrar</span> <span class="n">registrar</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">final</span> <span class="n">MethodChannel</span> <span class="n">channel</span> <span class="o">=</span> <span class="k">new</span> <span class="n">MethodChannel</span><span class="o">(</span><span class="n">registrar</span><span class="o">.</span><span class="na">messenger</span><span class="o">(),</span> <span class="s">"flutter_plugin_demo"</span><span class="o">);</span>
+        <span class="c1">// 初始化PluginDelegate</span>
+        <span class="kd">final</span> <span class="n">PluginDelegate</span> <span class="n">delegate</span> <span class="o">=</span> <span class="k">new</span> <span class="n">PluginDelegate</span><span class="o">(</span><span class="n">registrar</span><span class="o">);</span>
+        <span class="n">channel</span><span class="o">.</span><span class="na">setMethodCallHandler</span><span class="o">(</span><span class="k">new</span> <span class="n">FlutterPluginDemoPlugin</span><span class="o">(</span><span class="n">registrar</span><span class="o">,</span> <span class="n">delegate</span><span class="o">));</span>
+    <span class="o">}</span>
+    
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onMethodCall</span><span class="o">(</span><span class="n">MethodCall</span> <span class="n">call</span><span class="o">,</span> <span class="n">Result</span> <span class="n">result</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// 调用代理类方法演示</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">call</span><span class="o">.</span><span class="na">method</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="s">"methodA"</span><span class="o">))</span> <span class="o">{</span>
+            <span class="n">delegate</span><span class="o">.</span><span class="na">methodA</span><span class="o">(</span><span class="n">call</span><span class="o">,</span> <span class="n">result</span><span class="o">);</span>
+        <span class="o">}</span><span class="k">else</span> <span class="k">if</span><span class="o">(</span><span class="n">call</span><span class="o">.</span><span class="na">method</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="s">"methodB"</span><span class="o">)){</span>
+            <span class="n">delegate</span><span class="o">.</span><span class="na">methodB</span><span class="o">(</span><span class="n">call</span><span class="o">,</span> <span class="n">result</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></tbody></table></div></div>
+
+<h2 id="插件的依赖方式">插件的依赖方式</h2>
+<p><a href="https://flutter.dev/docs/development/packages-and-plugins/using-packages">官方文档</a></p>
+
+<p>这里有三种方式用来依赖插件</p>
+<ul>
+  <li>pub 依赖</li>
+  <li>git 依赖</li>
+  <li>本地依赖</li>
+</ul>
+
+<h3 id="pub-依赖">pub 依赖</h3>
+
+<p>这种是最常见的方式，直接在 工程的 <code class="highlighter-rouge">pubspec.yaml</code> 中依赖</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5</pre></td><td class="code"><pre class="highlight"><code><span class="na">dependencies</span><span class="pi">:</span>
+  <span class="na">flutter</span><span class="pi">:</span>
+    <span class="na">sdk</span><span class="pi">:</span> <span class="s">flutter</span>
+  <span class="c1"># 添加 toast 的依赖</span>
+  <span class="na">toast</span><span class="pi">:</span> <span class="s">^0.1.5</span>
+</code></pre></td></tr></tbody></table></div></div>
+
+<h3 id="git-依赖">git 依赖</h3>
+<p>很多时候，pub 上的某个插件并不能完全满足我们实际的业务需求，如 UI 或者一些逻辑问题，这个时候我们可以将其源码下载下来，然后根据自己的业务需求对其进行修改。改完之后通常会上传到公司的私有仓库中（GitHub 或者 GitLab），然后在工程中就需要依赖私有仓库中的库</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4</pre></td><td class="code"><pre class="highlight"><code><span class="na">dependencies</span><span class="pi">:</span>
+ <span class="na">toast</span><span class="pi">:</span>
+    <span class="na">git</span><span class="pi">:</span>
+      <span class="na">url</span><span class="pi">:</span> <span class="s">http://xxx/toast.git</span>
+</code></pre></td></tr></tbody></table></div></div>
+
+<p>还可能依赖该仓库指定分支上的代码，如依赖远程 <code class="highlighter-rouge">dev</code> 分支上的代码</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5</pre></td><td class="code"><pre class="highlight"><code><span class="na">dependencies</span><span class="pi">:</span>
+  <span class="na">toast</span><span class="pi">:</span>
+     <span class="na">git</span><span class="pi">:</span>
+      <span class="na">ref</span><span class="pi">:</span> <span class="s">dev</span>
+      <span class="na">url</span><span class="pi">:</span> <span class="s">http://xxx/toast.git</span>
+</code></pre></td></tr></tbody></table></div></div>
+
+<h3 id="本地依赖">本地依赖</h3>
+
+<p>有时候需要在项目中测试本地的某个插件，这个时候就可以使用本地依赖的方式来依赖插件</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3</pre></td><td class="code"><pre class="highlight"><code><span class="na">dependencies</span><span class="pi">:</span>
+    <span class="na">toast</span><span class="pi">:</span>
+        <span class="na">path</span><span class="pi">:</span> <span class="s">user/xxx/toast/</span>
+</code></pre></td></tr></tbody></table></div></div>
+
+<h2 id="插件的上传">插件的上传</h2>
+<p>这里是上传到 <a href="https://pub.dev">pub.dev</a> 上面</p>
+
+<p>在上传之前使用如下命令检查插件中的一些问题：</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1</pre></td><td class="code"><pre class="highlight"><code>flutter packages pub publish <span class="nt">--dry-run</span>
+</code></pre></td></tr></tbody></table></div></div>
+
+<p>还需要做的就是上传前的需要清理插件，避免插件过大无法上传</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1</pre></td><td class="code"><pre class="highlight"><code>flutter clean
+</code></pre></td></tr></tbody></table></div></div>
+
+<p>使用如下命令进行插件的上传</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1</pre></td><td class="code"><pre class="highlight"><code>flutter packages pub publish
+</code></pre></td></tr></tbody></table></div></div>
+<hr />
+<p>最后 <a href="https://github.com/liusilong/flutter_plugin_demo">github 地址</a></p>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            
+            <a href="/tag/#/Flutter" rel="tag"># Flutter</a>
+          
+        </div>
+      
+
+      
+      
+      
+      
+      
+
+      
+      
+        <div class="post-nav" id="post-nav-id">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/flutter/flutter-testing" rel="prev" title="Flutter 单元测试">
+                Flutter 单元测试 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+      
+
+      
+    </footer>
+  </article>
+
+  <div class="post-spread">
+    
+  </div>
+</div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+        
+        
+        
+
+
+
+
+
+
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/assets/images/avatar.gif"
+               alt="Liusilong" />
+          <p class="site-author-name" itemprop="name">Liusilong</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/">
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+        
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+
+
+
+
+
+
+
+            
+              <div class="post-toc-content">
+    <ol class=nav>
+      <li class="nav-item nav-level-2"> <a class="nav-link" href="#插件的创建"> <span class="nav-number">1</span> <span class="nav-text">插件的创建</span> </a> <ol class="nav-child"> <li class="nav-item nav-level-3"> <a class="nav-link" href="#使用-ide-创建插件"> <span class="nav-number">1.1</span> <span class="nav-text">使用 IDE 创建插件</span> </a> </li> <li class="nav-item nav-level-3"> <a class="nav-link" href="#使用命令创建插件"> <span class="nav-number">1.2</span> <span class="nav-text">使用命令创建插件</span> </a> </li> <li class="nav-item nav-level-3"> <a class="nav-link" href="#插件的目录结构"> <span class="nav-number">1.3</span> <span class="nav-text">插件的目录结构</span> </a> </li> </ol> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#获取-android-中的上下文-context"> <span class="nav-number">2</span> <span class="nav-text">获取 Android 中的上下文 Context</span> </a> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#dart-调用原生方法时传递参数"> <span class="nav-number">3</span> <span class="nav-text">Dart 调用原生方法时传递参数</span> </a> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#原生向-dart-层发送通知"> <span class="nav-number">4</span> <span class="nav-text">原生向 Dart 层发送通知</span> </a> <ol class="nav-child"> <li class="nav-item nav-level-3"> <a class="nav-link" href="#dart-层定义-eventchannel"> <span class="nav-number">4.1</span> <span class="nav-text">Dart 层定义 EventChannel</span> </a> </li> <li class="nav-item nav-level-3"> <a class="nav-link" href="#dart-层监听该-eventchannel"> <span class="nav-number">4.2</span> <span class="nav-text">Dart 层监听该 EventChannel</span> </a> </li> <li class="nav-item nav-level-3"> <a class="nav-link" href="#原生端定义-eventchannel"> <span class="nav-number">4.3</span> <span class="nav-text">原生端定义 EventChannel</span> </a> </li> <li class="nav-item nav-level-3"> <a class="nav-link" href="#原生端向-dart-层发送消息"> <span class="nav-number">4.4</span> <span class="nav-text">原生端向 Dart 层发送消息</span> </a> </li> </ol> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#插件中监听-activity-常用的生命周期方法的回调"> <span class="nav-number">5</span> <span class="nav-text">插件中监听 Activity 常用的生命周期方法的回调</span> </a> <ol class="nav-child"> <li class="nav-item nav-level-3"> <a class="nav-link" href="#生命周期方法回调"> <span class="nav-number">5.1</span> <span class="nav-text">生命周期方法回调</span> </a> </li> <li class="nav-item nav-level-3"> <a class="nav-link" href="#权限监听回调"> <span class="nav-number">5.2</span> <span class="nav-text">权限监听回调</span> </a> </li> <li class="nav-item nav-level-3"> <a class="nav-link" href="#startactivityforresult-的回调"> <span class="nav-number">5.3</span> <span class="nav-text">startActivityForResult 的回调</span> </a> </li> </ol> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#编写一个-delegate-类来处理业务逻辑"> <span class="nav-number">6</span> <span class="nav-text">编写一个 Delegate 类来处理业务逻辑</span> </a> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#插件的依赖方式"> <span class="nav-number">7</span> <span class="nav-text">插件的依赖方式</span> </a> <ol class="nav-child"> <li class="nav-item nav-level-3"> <a class="nav-link" href="#pub-依赖"> <span class="nav-number">7.1</span> <span class="nav-text">pub 依赖</span> </a> </li> <li class="nav-item nav-level-3"> <a class="nav-link" href="#git-依赖"> <span class="nav-number">7.2</span> <span class="nav-text">git 依赖</span> </a> </li> <li class="nav-item nav-level-3"> <a class="nav-link" href="#本地依赖"> <span class="nav-number">7.3</span> <span class="nav-text">本地依赖</span> </a> </li> </ol> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#插件的上传"> <span class="nav-number">8</span> <span class="nav-text">插件的上传</span> </a> </li>
+    </ol>
+  </div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Liusilong</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://jekyllrb.com">Jekyll</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/simpleyyt/jekyll-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+   
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/assets/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/assets/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  <script type="text/javascript" src="/assets/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/assets/js/src/post-details.js?v=5.1.1"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/assets/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+    
+
+  
+
+
+
+
+
+
+
+  
+
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
+
